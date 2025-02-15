@@ -77,7 +77,7 @@ public class User {
         return loggedIn;
     }
 
-    public void setLoggedIn(String loggedIn) {
+    public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
 
