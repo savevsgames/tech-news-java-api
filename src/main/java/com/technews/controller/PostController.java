@@ -4,7 +4,6 @@ import com.technews.exception.ResourceNotFoundException;
 import com.technews.model.Post;
 import com.technews.model.User;
 import com.technews.model.Vote;
-import com.technews.repository.CommentRepository;
 import com.technews.repository.PostRepository;
 import com.technews.repository.UserRepository;
 import com.technews.repository.VoteRepository;
