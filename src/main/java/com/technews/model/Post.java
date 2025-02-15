@@ -22,7 +22,7 @@ public class Post implements Serializable {
     @Transient
     private String userName;
     @Transient
-    private String voteCount;
+    private Integer voteCount;
     private Integer userId;
 
     @NotNull
@@ -40,7 +40,7 @@ public class Post implements Serializable {
 
     public Post(){}
 
-    public Post(Integer id, String title, String postUrl, String userName, Date postedAt, Date updatedAt, List<Comment> comments) {
+    public Post(Integer id, String title, String postUrl, String userName, Date postedAt, Date updatedAt, List<Comment> comments, Integer voteCount) {
         this.id = id;
         this.title = title;
         this.postUrl = postUrl;
@@ -64,11 +64,19 @@ public class Post implements Serializable {
         this.userName = userName;
     }
 
-    public String getVoteCount() {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(String voteCount) {
+    public void setVoteCount(Integer voteCount) {
         this.voteCount = voteCount;
     }
 
