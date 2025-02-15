@@ -18,7 +18,7 @@ public class User {
     private String email;
     private String password;
     @Transient
-    private String loggedIn;
+    private boolean loggedIn;
 
     // Only one List relationship can be EAGER - posts have votes and comments, so we use posts
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -31,6 +31,15 @@ public class User {
     // Need to use FetchType.LAZY to resolve multiple bags exception
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
+
+    public User() {}
+
+    public User(Integer id, String username, String email, String password) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     public int getId() {
         return id;
@@ -64,7 +73,7 @@ public class User {
         this.password = password;
     }
 
-    public String getLoggedIn() {
+    public boolean isLoggedIn() {
         return loggedIn;
     }
 
@@ -127,5 +136,4 @@ public class User {
                 ", comments=" + comments +
                 '}';
     }
-}
 }
