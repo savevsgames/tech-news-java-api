@@ -64,12 +64,26 @@ public class Post implements Serializable {
         this.userName = userName;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPostUrl() {
+        return postUrl;
+    }
+    public void setPostUrl(String postUrl) {
+        this.postUrl = postUrl;
     }
 
     public Integer getVoteCount() {
