@@ -151,7 +151,7 @@ public class HomePageController {
         List<Post> postList = postRepository.findAllPostsByUserId(userId);
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.findById(p.getUserId()).orElseThrow(()->new ResourceNotFoundException("User not found for post: " + p.getId()));
             p.setUserName(user.getUsername());
         }
 
@@ -171,10 +171,10 @@ public class HomePageController {
             model.addAttribute("loggedIn", sessionUser.isLoggedIn());
         }
 
-        Post post = postRepository.getById(id);
+        Post post = postRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Post not found for id: " + id));
         post.setVoteCount(voteRepository.countVotesByPostId(post.getId()));
 
-        User postUser = userRepository.getById(post.getUserId());
+        User postUser = userRepository.findById(post.getUserId()).orElseThrow(()->new ResourceNotFoundException("User not found for post: " + post.getId()));
         post.setUserName(postUser.getUsername());
 
         List<Comment> commentList = commentRepository.findAllCommentsByPostId(post.getId());
@@ -192,8 +192,10 @@ public class HomePageController {
         if (request.getSession(false) != null) {
             User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
 
-            Post returnPost = postRepository.getById(id);
-            User tempUser = userRepository.getById(returnPost.getUserId());
+            Post returnPost = postRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Post not found for id: " + id));
+            User tempUser = userRepository.findById(returnPost.getUserId())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found for post id: " + returnPost.getId()));
+
             returnPost.setUserName(tempUser.getUsername());
             returnPost.setVoteCount(voteRepository.countVotesByPostId(returnPost.getId()));
 

@@ -42,8 +42,8 @@
         <button type="button" class="delete-post-btn">Delete post</button>
     </form>
 
-
-    <form action="#" th:action="@{/comments/edit}" th:object="${comment}" method="post" class="comment-form">
+<!--    Changed from: @{/comments/edit ? -->
+    <form action="#" th:action="@{/comments/updateComment}" th:object="${comment}" method="post" class="comment-form">
         <div>
             <input type="hidden" th:value="${post.id}" name="postId"/>
             <textarea name="comment-body" th:field="*{commentText}"></textarea>
@@ -55,7 +55,7 @@
     </form>
 
     <div class="comments">
-        <div th:insert="fragments/comment-fragment :: comment-fragment"></div>
+        <div th:insert="~{fragments/comment-fragment :: comment-fragment}"></div>
     </div>
 
     <div th:if="${loggedIn}">

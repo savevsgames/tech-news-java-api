@@ -35,7 +35,7 @@ public class TechNewsController {
 
     @PostMapping("/users/login")
     public String login(@ModelAttribute User user, Model model, HttpServletRequest request) throws Exception {
-        if(user.getPassword().equals(null) || user.getPassword().isEmpty() || (user.getEmail().equals(null) || user.getEmail().isEmpty() )) {
+        if(user.getPassword() == null || user.getPassword().isEmpty() || (user.getEmail() == null || user.getEmail().isEmpty() )) {
             model.addAttribute("notice", "Email address and password must be populated in order to login!");
             return "login";
         }
@@ -43,8 +43,8 @@ public class TechNewsController {
         User sessionUser = userRepository.findUserByEmail(user.getEmail());
 
         try {
-            // sessionUser is invalid, runnign .equals() will throw an error
-            if (sessionUser.equals(null)){
+            // sessionUser is invalid, running .equals() will throw an error
+            if (sessionUser == null){
 
             }
             // We will catch an error and notify client that email address is not recognized
@@ -56,7 +56,7 @@ public class TechNewsController {
         // Validation
         String sessionPassword = sessionUser.getPassword();
         boolean isPasswordValid = BCrypt.checkpw(user.getPassword(), sessionPassword);
-        if (isPasswordValid == false) {
+        if (!isPasswordValid) {
             model.addAttribute("notice", "Password is invalid!");
             return "login";
         }
@@ -69,7 +69,7 @@ public class TechNewsController {
 
     @PostMapping("/users")
     public String signup(@ModelAttribute User user, Model model, HttpServletRequest request) throws Exception {
-        if ((user.getUsername().equals(null) || user.getUsername().isEmpty()) || (user.getEmail().equals(null) || user.getEmail().isEmpty())) {
+        if ((user.getUsername() == null || user.getUsername().isEmpty()) || (user.getEmail() == null || user.getEmail().isEmpty())) {
             model.addAttribute("notice", "Email address and password must be populated in order to login!");
             return "login";
         }
@@ -86,7 +86,7 @@ public class TechNewsController {
         User sessionUser = userRepository.findUserByEmail(user.getEmail());
 
         try {
-            if (sessionUser.equals(null)){
+            if (sessionUser==null){
 
             }
         } catch (NullPointerException e) {
@@ -94,6 +94,7 @@ public class TechNewsController {
             return "login";
         }
 
+        assert sessionUser != null;
         sessionUser.setLoggedIn(true);
         request.getSession().setAttribute("SESSION_USER", sessionUser);
 
@@ -102,7 +103,7 @@ public class TechNewsController {
 
     @PostMapping("/posts")
     public String addPostDashboardPage(@ModelAttribute Post post, Model model, HttpServletRequest request) throws Exception {
-        if ((post.getTitle().equals(null) || post.getTitle().isEmpty()) || (post.getPostUrl().equals(null) || post.getPostUrl().isEmpty())) {
+        if ((post.getTitle() == null || post.getTitle().isEmpty()) || (post.getPostUrl() == null || post.getPostUrl().isEmpty())) {
             return "redirect:/dashboardEmptyTitleAndLink";
         }
 
@@ -133,7 +134,7 @@ public class TechNewsController {
 
     @PostMapping("/comments")
     public String createCommentCommentsPage(@ModelAttribute Comment comment, Model model, HttpServletRequest request) throws Exception {
-        if (comment.getCommentText().equals(null) || comment.getCommentText().isEmpty()) {
+        if (comment.getCommentText() == null || comment.getCommentText().isEmpty()) {
             return "redirect:/singlePostEmptyComment/" + comment.getPostId();
         } else {
             // user is the owner of the comment

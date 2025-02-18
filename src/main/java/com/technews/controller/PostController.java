@@ -43,6 +43,13 @@ public class PostController {
         return post;
     }
 
+    @PostMapping("/api/posts")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Post addPost(@RequestBody Post post) {
+        repository.save(post);
+        return post;
+    }
+
     @PutMapping("/api/posts/{id}")
     public Post updatePost(@PathVariable int id, @RequestBody Post post) {
         Post tempPost = repository.findById(id)

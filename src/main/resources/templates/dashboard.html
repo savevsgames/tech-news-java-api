@@ -34,7 +34,7 @@
         <h2>Your Posts</h2>
         <ol>
             <li th:each="post : ${postList}">
-                <div th:insert="fragments/post-fragment :: post-fragment"></div>
+                <div th:insert="~{fragments/post-fragment :: post-fragment}"></div>
                 <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="edit-link">Edit post</a>
             </li>
         </ol>
