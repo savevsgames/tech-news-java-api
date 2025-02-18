@@ -19,8 +19,8 @@
 
     <form th:if="${loggedIn}" action="#" th:action="@{/comments}" th:object="${comment}" method="post" class="comment-form">
         <div>
-            <input type="hidden" th:value="${post.id}" name="postId"/>
-            <textarea name="comment-body" th:field="*{commentText}"></textarea>
+            <input type="hidden" th:value="${post.id}"/>
+            <textarea th:field="*{commentText}"></textarea>
         </div>
 
         <div>

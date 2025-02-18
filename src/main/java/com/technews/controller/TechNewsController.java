@@ -134,6 +134,10 @@ public class TechNewsController {
 
     @PostMapping("/comments")
     public String createCommentCommentsPage(@ModelAttribute Comment comment, Model model, HttpServletRequest request) throws Exception {
+
+        // Debugging comment creation
+        System.out.println("Received comment: " + comment);
+
         if (comment.getCommentText() == null || comment.getCommentText().isEmpty()) {
             return "redirect:/singlePostEmptyComment/" + comment.getPostId();
         } else {
