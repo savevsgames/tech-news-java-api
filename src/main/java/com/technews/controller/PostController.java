@@ -55,7 +55,8 @@ public class PostController {
         Post tempPost = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with ID: " + id));
         tempPost.setTitle(post.getTitle());
-        return repository.save(tempPost);
+         repository.save(tempPost);
+        return tempPost;
     }
 
     // Because every post can be upvoted - we need to track each post with addVote()
@@ -91,6 +92,7 @@ public class PostController {
     public void deletePost(@PathVariable int id) {
         repository.deleteById(id);
     }
+
 
 
 

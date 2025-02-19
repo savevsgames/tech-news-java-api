@@ -19,7 +19,8 @@
         Edit Post
     </h2>
 
-    <form action="#" th:action="@{/posts/{id}(id=${post.id})}" th:object="${post}" method="post" class="edit-post-form">
+<!--  REMOVED from form:  action="#" th:action="@{/posts/{id}(id=${post.id})}" method="post" ADDED: id -->
+    <form id="editPostForm" th:object="${post}" class="edit-post-form">
         <div>
             <input type="text" th:field="*{title}"/>
             <span th:text="${#strings.replace(post.postUrl,'http://','')}"></span>
@@ -60,8 +61,12 @@
 
     <div th:if="${loggedIn}">
         <script src="/js/delete-post.js"></script>
+        <script src="/js/update-post.js"></script>
     </div>
 </div>
+
+
+
 
 
 </body>

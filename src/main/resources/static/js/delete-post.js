@@ -1,6 +1,6 @@
 async function deleteFormHandler(event) {
     event.preventDefault();
-
+    console.log("Deleting Post... ")
     const id = window.location.toString().split('/')[
     window.location.toString().split('/').length - 1
         ];
@@ -10,7 +10,8 @@ async function deleteFormHandler(event) {
     });
 
     if (response.ok) {
-        document.location.replace('/dashboard/')
+        console.log("Post Deleted. Redirecting... ")
+        document.location.replace('/dashboard')
     } else {
         alert(response.statusText);
     }
